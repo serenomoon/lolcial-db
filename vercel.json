@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "name": "araweb-db",
+    "builds": [
+       { "src": "index.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+        { 
+        "src": "/[^.]+", 
+        "dest": "/", 
+        "status": 200,
+        "methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "OPTIONS",
+            "DELETE"
+          ] }
+    ]
+ }

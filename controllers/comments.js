@@ -23,7 +23,6 @@ const getComments = async(req,res = response ) => {
 const crearComment = async(req,res = response ) => {
 
         const comment = new Comment( req.body )
-        console.log(comment)
 
         try {
 

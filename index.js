@@ -32,6 +32,8 @@ app.use('/api/noticias', require('./routes/noticias') );
 
 app.use('/api/perfil', require('./routes/perfil') );
 
+app.use('/api/apiinfo', require('./routes/apiinfo') );
+
 // app.use('/api/events', require('./routes/events') );
 
 app.get('*', (req,res) => {

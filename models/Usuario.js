@@ -19,6 +19,10 @@ const UsuarioSchema = Schema({
         type: String,
         required: true
     },
+    tagline: {
+        type: String,
+        required: true
+    },
     server: {
         type: String,
         required: true

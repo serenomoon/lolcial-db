@@ -5,7 +5,7 @@ const { generarJWT } = require('../helpers/jwt');
 
 const crearUsuario = async(req, res = response ) => {
 
-    const { email, password, summoner ,server ,title ,imguser ,textuser ,perceptionuser ,characteruser, lines ,networks ,recommendation, suminfo, rank, champmastery, elocolor } = req.body;
+    const { email, password, summoner, tagline ,server ,title ,imguser ,textuser ,perceptionuser ,characteruser, lines ,networks ,recommendation, suminfo, rank, champmastery, elocolor } = req.body;
 
     try {
         let usuario = await Usuario.findOne({ email });
@@ -30,6 +30,7 @@ const crearUsuario = async(req, res = response ) => {
             usuario.id, 
             usuario.name, 
             usuario.summoner,
+            usuario.tagline,
             usuario.server,
             usuario.title,
             usuario.imguser,
@@ -50,6 +51,7 @@ const crearUsuario = async(req, res = response ) => {
             uid: usuario.id,
             name: usuario.name,
             summoner: usuario.summoner,
+            tagline: usuario.tagline,
             server: usuario.server,
             title: usuario.title,
             imguser: usuario.imguser,
@@ -82,6 +84,7 @@ const loginUsuario = async(req, res = response) => {
 
     const { email, password } = req.body;
 
+    console.log(email)
 
     try {
         let usuario = await Usuario.findOne({ email });
@@ -102,11 +105,13 @@ const loginUsuario = async(req, res = response) => {
             });
         }
 
+
         // Generar JWT
         const token = await generarJWT( 
             usuario.id, 
             usuario.name, 
             usuario.summoner,
+            usuario.tagline,
             usuario.server,
             usuario.title,
             usuario.imguser,
@@ -127,6 +132,7 @@ const loginUsuario = async(req, res = response) => {
             uid: usuario.id,
             name: usuario.name,
             summoner: usuario.summoner,
+            tagline: usuario.tagline,
             server: usuario.server,
             title: usuario.title,
             imguser: usuario.imguser,
@@ -154,6 +160,96 @@ const loginUsuario = async(req, res = response) => {
 };
 
 
+const actualizarUsuario = async(req,res = response ) => {
+
+    const usuarioId = req.params.id;
+    const uid = req.uid;
+
+    try {
+        
+        const usuario = await Usuario.findById( usuarioId );
+
+        if ( !usuario ) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Usuario no existe con ese id'
+            })
+        }
+
+        console.log(usuario)
+        // if ( usuario.user.toString() !== uid ) {
+        //     return res.status(401).json({
+        //         ok: false,
+        //         msg: "No tiene permiso para editar esta noticia"
+        //     })
+        // }
+
+        const nuevoUsuario = {
+            ...req.body,
+            user: uid
+        }
+
+        const usuarioActualizado = await Usuario.findByIdAndUpdate( usuarioId, nuevoUsuario, { new: true } );
+
+         // Generar JWT
+         const token = await generarJWT( 
+            usuarioActualizado.id, 
+            usuarioActualizado.name, 
+            usuarioActualizado.summoner,
+            usuarioActualizado.tagline,
+            usuarioActualizado.server,
+            usuarioActualizado.title,
+            usuarioActualizado.imguser,
+            usuarioActualizado.textuser,
+            usuarioActualizado.perceptionuser,
+            usuarioActualizado.characteruser,
+            usuarioActualizado.lines,
+            usuarioActualizado.networks,
+            usuarioActualizado.recommendation,
+            usuarioActualizado.suminfo,
+            usuarioActualizado.rank,
+            usuarioActualizado.champmastery,
+            usuarioActualizado.elocolor
+            );
+
+        res.json({
+            ok: true,
+            uid: usuarioActualizado.id,
+            name: usuarioActualizado.name,
+            summoner: usuarioActualizado.summoner,
+            tagline: usuarioActualizado.tagline,
+            server: usuarioActualizado.server,
+            title: usuarioActualizado.title,
+            imguser: usuarioActualizado.imguser,
+            textuser: usuarioActualizado.textuser,
+            perceptionuser: usuarioActualizado.perceptionuser,
+            characteruser: usuarioActualizado.characteruser,
+            lines: usuarioActualizado.lines,
+            networks: usuarioActualizado.networks,
+            recommendation: usuarioActualizado.recommendation,
+            suminfo: usuarioActualizado.suminfo,
+            rank: usuarioActualizado.rank,
+            champmastery: usuarioActualizado.champmastery,
+            elocolor: usuarioActualizado.elocolor,
+            token
+        })
+        // res.status(201).json({
+        //     ok: true,
+        //     perfil: usuarioActualizado,
+        //     token
+        // });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el admin'
+        })
+
+    }
+};
+
+
 
 const revalidarToken = async(req, res = response) => {
 
@@ -161,6 +257,7 @@ const revalidarToken = async(req, res = response) => {
         name, 
         uid,
         summoner,
+        tagline,
         server,
         title,
         imguser,
@@ -181,6 +278,7 @@ const revalidarToken = async(req, res = response) => {
         uid,
         name,
         summoner,
+        tagline,
         server,
         title,
         imguser,
@@ -201,6 +299,7 @@ const revalidarToken = async(req, res = response) => {
         uid, 
         name,
         summoner,
+        tagline,
         server,
         title,
         imguser,
@@ -224,5 +323,6 @@ const revalidarToken = async(req, res = response) => {
 module.exports = { 
     crearUsuario,
     loginUsuario,
-    revalidarToken
+    revalidarToken,
+    actualizarUsuario
  }

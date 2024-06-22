@@ -17,6 +17,7 @@ router.post(
     '/',
     [
         check('summoner','El nombre de invocador es obligatorio').not().isEmpty(),
+        check('tagline','El nombre de invocador es obligatorio').not().isEmpty(),
         check('server','El server es obligatorio').not().isEmpty(),
         check('title','El titulo es obligatorio').not().isEmpty(),
         check('imguser','La Url de la imagen es obligatoria').not().isEmpty(),
@@ -34,6 +35,7 @@ router.put(
     '/:id',
     [
         check('summoner','El nombre de invocador es obligatorio').not().isEmpty(),
+        check('tagline','El nombre de invocador es obligatorio').not().isEmpty(),
         check('server','El server es obligatorio').not().isEmpty(),
         check('title','El titulo es obligatorio').not().isEmpty(),
         check('imguser','La Url de la imagen es obligatoria').not().isEmpty(),

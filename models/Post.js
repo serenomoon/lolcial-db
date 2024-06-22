@@ -27,6 +27,7 @@ const PostSchema = Schema({
         server: { type: String },
         imguser: { type: String },
         summoner: { type: String },
+        tagline: { type: String },
         textuser: { type: String },
         title: { type: String },
         elocolor: { type: String },

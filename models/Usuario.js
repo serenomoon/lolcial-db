@@ -63,6 +63,12 @@ const UsuarioSchema = Schema({
     champmastery: [
         String
     ],
+    tags: {
+        type: Object,
+    },
+    tutorialcheck: [
+        Number
+    ],
     elocolor: {
         type: String,
         required: true

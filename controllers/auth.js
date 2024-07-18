@@ -5,7 +5,7 @@ const { generarJWT } = require('../helpers/jwt');
 
 const crearUsuario = async(req, res = response ) => {
 
-    const { email, password, summoner, tagline ,server ,title ,imguser ,textuser ,perceptionuser ,characteruser, lines ,networks ,recommendation, suminfo, rank, champmastery, elocolor } = req.body;
+    const { email, password, summoner, tagline, tags, tutorialcheck ,server ,title ,imguser ,textuser ,perceptionuser ,characteruser, lines ,networks ,recommendation, suminfo, rank, champmastery, elocolor } = req.body;
 
     try {
         let usuario = await Usuario.findOne({ email });
@@ -31,6 +31,8 @@ const crearUsuario = async(req, res = response ) => {
             usuario.name, 
             usuario.summoner,
             usuario.tagline,
+            usuario.tags,
+            usuario.tutorialcheck,
             usuario.server,
             usuario.title,
             usuario.imguser,
@@ -52,6 +54,8 @@ const crearUsuario = async(req, res = response ) => {
             name: usuario.name,
             summoner: usuario.summoner,
             tagline: usuario.tagline,
+            tags: usuario.tags,
+            tutorialcheck: usuario.tutorialcheck,
             server: usuario.server,
             title: usuario.title,
             imguser: usuario.imguser,
@@ -84,8 +88,6 @@ const loginUsuario = async(req, res = response) => {
 
     const { email, password } = req.body;
 
-    console.log(email)
-
     try {
         let usuario = await Usuario.findOne({ email });
 
@@ -112,6 +114,8 @@ const loginUsuario = async(req, res = response) => {
             usuario.name, 
             usuario.summoner,
             usuario.tagline,
+            usuario.tags,
+            usuario.tutorialcheck,
             usuario.server,
             usuario.title,
             usuario.imguser,
@@ -133,6 +137,8 @@ const loginUsuario = async(req, res = response) => {
             name: usuario.name,
             summoner: usuario.summoner,
             tagline: usuario.tagline,
+            tags: usuario.tags,
+            tutorialcheck: usuario.tutorialcheck,
             server: usuario.server,
             title: usuario.title,
             imguser: usuario.imguser,
@@ -176,7 +182,6 @@ const actualizarUsuario = async(req,res = response ) => {
             })
         }
 
-        console.log(usuario)
         // if ( usuario.user.toString() !== uid ) {
         //     return res.status(401).json({
         //         ok: false,
@@ -197,6 +202,8 @@ const actualizarUsuario = async(req,res = response ) => {
             usuarioActualizado.name, 
             usuarioActualizado.summoner,
             usuarioActualizado.tagline,
+            usuarioActualizado.tutorialcheck,
+            usuarioActualizado.tags,
             usuarioActualizado.server,
             usuarioActualizado.title,
             usuarioActualizado.imguser,
@@ -218,6 +225,8 @@ const actualizarUsuario = async(req,res = response ) => {
             name: usuarioActualizado.name,
             summoner: usuarioActualizado.summoner,
             tagline: usuarioActualizado.tagline,
+            tutorialcheck: usuarioActualizado.tutorialcheck,
+            tags: usuarioActualizado.tags,
             server: usuarioActualizado.server,
             title: usuarioActualizado.title,
             imguser: usuarioActualizado.imguser,
@@ -258,6 +267,8 @@ const revalidarToken = async(req, res = response) => {
         uid,
         summoner,
         tagline,
+        tags,
+        tutorialcheck,
         server,
         title,
         imguser,
@@ -279,6 +290,8 @@ const revalidarToken = async(req, res = response) => {
         name,
         summoner,
         tagline,
+        tags,
+        tutorialcheck,
         server,
         title,
         imguser,
@@ -300,6 +313,8 @@ const revalidarToken = async(req, res = response) => {
         name,
         summoner,
         tagline,
+        tags,
+        tutorialcheck,
         server,
         title,
         imguser,

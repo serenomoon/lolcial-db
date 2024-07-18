@@ -16,7 +16,7 @@ const jwtValidator = ( req, res = response, next) => {
 
     try {
 
-        const { uid, name, summoner, tagline, server, title, imguser, textuser, perceptionuser, characteruser, lines, networks, recommendation, suminfo, rank, champmastery, elocolor  } = jwt.verify(
+        const { uid, name, summoner, tagline, tags, tutorialcheck, server, title, imguser, textuser, perceptionuser, characteruser, lines, networks, recommendation, suminfo, rank, champmastery, elocolor  } = jwt.verify(
             token,
             process.env.SECRET_JWT_SEED
         );
@@ -24,7 +24,9 @@ const jwtValidator = ( req, res = response, next) => {
         req.uid = uid;
         req.name = name;
         req.summoner = summoner; 
-        req.tagline = tagline; 
+        req.tagline = tagline;
+        req.tags = tags;
+        req.tutorialcheck = tutorialcheck;
         req.server = server;
         req.title = title;
         req.imguser = imguser; 

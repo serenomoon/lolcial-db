@@ -15,7 +15,7 @@ const getSumByName = async(req,res = response ) => {
 
         // const resp = await axios.get(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${sumo}?api_key=${apiRiot}`)
         // Usar este endpoint:
-        console.log(region)
+       
         const resp = await axios.get(`https://${region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${sumo}/${tag}?api_key=${apiRiot}`)
         const data = resp.data
 
@@ -37,7 +37,7 @@ const getMatchesByPuuid = async(req,res = response ) => {
     const puuid = req.query.paramB  //puuid
 
     const resp = await axios.get(`https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?api_key=${apiRiot}`)
-    console.log(resp)
+    
     const data = resp.data
 
     res.status(201).send({
@@ -65,7 +65,7 @@ const getRankData = async(req,res = response ) => {
 
     const region = req.query.paramA //region
     const sumid = req.query.paramB  //sumid
-    console.log('accede a getRankData')
+    
     const sid = await axios.get(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${sumid}?api_key=${apiRiot}`)
     const resp = await axios.get(`https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${sid.data.id}?api_key=${apiRiot}`)
 

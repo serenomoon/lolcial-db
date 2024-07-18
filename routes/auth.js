@@ -30,6 +30,8 @@ router.post(
         check('rank','El rank es obligatorio'),
         check('champmastery','El champmastery es obligatorio'),
         check('elocolor','El champmastery es obligatorio'),
+        check('tags','El champmastery es obligatorio'),
+        check('tutorialcheck','El champmastery es obligatorio'),
         fieldValidator
     ],
     crearUsuario
@@ -55,6 +57,8 @@ router.put(
         check('rank','El rank es obligatorio'),
         check('champmastery','El champmastery es obligatorio'),
         check('elocolor','El champmastery es obligatorio'),
+        check('tags','El champmastery es obligatorio'),
+        check('tutorialcheck','El champmastery es obligatorio'),
         fieldValidator
     ],  
     actualizarUsuario );
